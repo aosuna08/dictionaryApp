@@ -8,7 +8,7 @@ def get_definition (word : str, lang : str) -> Dict[str, Any] :
     """
 
     # Formatear palabra que se ingresa al buscador
-    cleanWord = word.strip().lower()
+    cleanWord = word.strip()
     url = f"https://api.dictionaryapi.dev/api/v2/entries/{lang}/{cleanWord}"
 
     try :
