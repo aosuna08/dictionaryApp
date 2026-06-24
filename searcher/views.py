@@ -22,13 +22,11 @@ def search_word (request) :
     word = request.GET.get('word')
 
     # Obetner idioma
-    # Si no se recibe, se asume que es ingles
-    lang = request.GET.get('lang', 'en')
+    lang = request.GET.get('lang')
 
     if word :
         # 1. Se llama a la funcion que obtiene las definiciones de la palabra
         response = get_definition(word, lang)
-
         # 2. Se almacenan los resultados en el diccionario contexto
         context['active_search'] = True
         context['response'] = response
@@ -36,4 +34,4 @@ def search_word (request) :
         context['selected_lang'] = lang
 
     # 3. Se renderiza el archivo HTML donde se presentan las definiciones
-    return render(request, 'searcher/index.html', context) # [PLACEHOLDER (Aun no se crean los templates)]
+    return render(request, 'searcher/index.html', context)

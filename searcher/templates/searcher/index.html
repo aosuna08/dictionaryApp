@@ -19,37 +19,36 @@
 
     <div class="formulario">
         <form method="GET" action="/">
-            <input type="text" name="word" placeholder="Escribe una palabra..." required 
-                   value="{{ palabra_buscada }}">
+            <input type="text" name="word" placeholder="Escribe una palabra..." required value="{{ searched_word }}">
             
             <select name="lang">
-                <option value="en" {% if idioma_seleccionado == 'en' %}selected{% endif %}>Inglés</option>
-                <option value="de" {% if idioma_seleccionado == 'de' %}selected{% endif %}>Alemán</option>
-                <option value="es" {% if idioma_seleccionado == 'es' %}selected{% endif %}>Español</option>
+                <option value="en" {% if selected_lang == 'en' %}selected{% endif %}>Inglés</option>
+                <option value="de" {% if selected_lang == 'de' %}selected{% endif %}>Alemán</option>
+                <option value="es" {% if selected_lang == 'es' %}selected{% endif %}>Español</option>
             </select>
             
             <button type="submit">Buscar</button>
         </form>
     </div>
 
-    {% if busqueda_activa %}
+    {% if active_search %}
         
-        {% if resultado.error %}
+        {% if response.error %}
             <div class="error">
-                <strong>Error:</strong> {{ resultado.mensaje }}
+                <strong>Error:</strong> {{ response.description }}
             </div>
             
         {% else %}
             <div class="resultado">
-                <h2>{{ resultado.palabra }}</h2>
+                <h2>{{ response.word }}</h2>
                 
-                {% for item in resultado.significados %}
+                {% for item in response.definition %}
                     <div class="significado">
-                        <strong>Categoría:</strong> {{ item.categoria }}<br>
-                        <strong>Definición:</strong> {{ item.definicion }}
+                        <strong>Categoría:</strong> {{ item.category }}<br>
+                        <strong>Definición:</strong> {{ item.definition }}
                         
-                        {% if item.ejemplo %}
-                            <br><em>Ejemplo: "{{ item.ejemplo }}"</em>
+                        {% if item.example %}
+                            <br><em>Ejemplo: "{{ item.example }}"</em>
                         {% endif %}
                     </div>
                 {% endfor %}
