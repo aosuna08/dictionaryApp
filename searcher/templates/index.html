@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Diccionario</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        .formulario { background: #f4f4f4; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .error { color: #d9534f; background: #fdf7f7; padding: 10px; border-left: 4px solid #d9534f; }
+        .resultado { background: #e9f7ef; padding: 15px; border-radius: 8px; }
+        .significado { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #ccc; }
+        input, select, button { padding: 8px; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>Buscador de Definiciones</h1>
+
+    <div class="formulario">
+        <form method="GET" action="/">
+            <input type="text" name="word" placeholder="Escribe una palabra..." required 
+                   value="{{ palabra_buscada }}">
+            
+            <select name="lang">
+                <option value="en" {% if idioma_seleccionado == 'en' %}selected{% endif %}>Inglés</option>
+                <option value="de" {% if idioma_seleccionado == 'de' %}selected{% endif %}>Alemán</option>
+                <option value="es" {% if idioma_seleccionado == 'es' %}selected{% endif %}>Español</option>
+            </select>
+            
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    {% if busqueda_activa %}
+        
+        {% if resultado.error %}
+            <div class="error">
+                <strong>Error:</strong> {{ resultado.mensaje }}
+            </div>
+            
+        {% else %}
+            <div class="resultado">
+                <h2>{{ resultado.palabra }}</h2>
+                
+                {% for item in resultado.significados %}
+                    <div class="significado">
+                        <strong>Categoría:</strong> {{ item.categoria }}<br>
+                        <strong>Definición:</strong> {{ item.definicion }}
+                        
+                        {% if item.ejemplo %}
+                            <br><em>Ejemplo: "{{ item.ejemplo }}"</em>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+</body>
+</html>
