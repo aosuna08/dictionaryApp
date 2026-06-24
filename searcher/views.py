@@ -35,5 +35,5 @@ def search_word (request) :
         context['searched_word'] = word
         context['selected_lang'] = lang
 
-        # 3. Se renderiza el archivo HTML donde se presentan las definiciones
-        return render(request, 'searcher/index.html', context) # [PLACEHOLDER (Aun no se crean los templates)]
+    # 3. Se renderiza el archivo HTML donde se presentan las definiciones
+    return render(request, 'searcher/index.html', context) # [PLACEHOLDER (Aun no se crean los templates)]
